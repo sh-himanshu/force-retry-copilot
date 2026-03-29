@@ -1,0 +1,48 @@
+{
+  "name": "force-retry-copilot",
+  "displayName": "Force Retry Copilot",
+  "description": "Automatically retries GitHub Copilot Chat when execution errors occur",
+  "version": "0.0.2",
+  "publisher": "himan",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "force-retry-copilot.showMenu",
+        "title": "Force Retry Copilot: Options"
+      }
+    ],
+    "configuration": {
+      "title": "Force Retry Copilot",
+      "properties": {
+        "forceRetryCopilot.debounceMs": {
+          "type": "number",
+          "default": 5000,
+          "description": "Minimum milliseconds between retries"
+        },
+        "forceRetryCopilot.retryMessage": {
+          "type": "string",
+          "default": "try again",
+          "description": "Message to send to Copilot Chat on error"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "bun build src/extension.ts --outdir=out --target=node --format=cjs --external=vscode",
+    "package": "bun run build && bunx @vscode/vsce package --no-dependencies",
+    "install-ext": "bun run package && code --install-extension force-retry-copilot-0.0.2.vsix"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

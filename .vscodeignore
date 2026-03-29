@@ -1,0 +1,8 @@
+src/**
+node_modules/**
+tsconfig.json
+CLAUDE.md
+.gitignore
+bun.lock
+*.ts
+!out/**
