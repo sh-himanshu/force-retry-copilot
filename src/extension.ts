@@ -6,7 +6,7 @@ const RESET_WINDOW_MS = 60_000;
 let enabled = true;
 let lastRetryAt = 0;
 let consecutiveRetries = 0;
-let maxRetries = 3; // runtime value, changed via menu
+let maxRetries = 15; // runtime value, changed via menu
 let statusBarItem: vscode.StatusBarItem;
 let outputLog: vscode.OutputChannel;
 
@@ -30,7 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
         // When OFF — offer to turn on
         const pick = await vscode.window.showQuickPick(
           [
-            { label: "$(play) Turn ON", description: "Normal retry (max 3)", id: "on-normal" },
+            { label: "$(play) Turn ON", description: "Normal retry (max 15)", id: "on-normal" },
             { label: "$(play) Turn ON — Custom", description: "Choose max retries", id: "on-custom" },
           ],
           { title: "Force Retry Copilot", placeHolder: "Currently OFF" }
@@ -38,11 +38,11 @@ export function activate(context: vscode.ExtensionContext) {
         if (!pick) return;
 
         if (pick.id === "on-normal") {
-          maxRetries = 3;
+          maxRetries = 15;
           enabled = true;
           consecutiveRetries = 0;
           updateStatusBar();
-          log("Enabled — normal mode (max 3)");
+          log("Enabled — normal mode (max 15)");
         } else if (pick.id === "on-custom") {
           const chosen = await pickCustomMax();
           if (chosen === undefined) return;
@@ -58,7 +58,7 @@ export function activate(context: vscode.ExtensionContext) {
         const pick = await vscode.window.showQuickPick(
           [
             { label: "$(primitive-square) Turn OFF", description: "", id: "off" },
-            { label: "$(settings) Normal Retry", description: "max 3 retries", id: "normal" },
+            { label: "$(settings) Normal Retry", description: "max 15 retries", id: "normal" },
             { label: "$(settings-gear) Custom Retry", description: "Choose max retries", id: "custom" },
           ],
           { title: "Force Retry Copilot", placeHolder: `Currently ON — ${modeLabel} | retries: ${consecutiveRetries}` }
@@ -71,10 +71,10 @@ export function activate(context: vscode.ExtensionContext) {
           updateStatusBar();
           log("Disabled");
         } else if (pick.id === "normal") {
-          maxRetries = 3;
+          maxRetries = 15;
           consecutiveRetries = 0;
           updateStatusBar();
-          log("Switched to normal mode (max 3)");
+          log("Switched to normal mode (max 15)");
         } else if (pick.id === "custom") {
           const chosen = await pickCustomMax();
           if (chosen === undefined) return;
@@ -150,6 +150,7 @@ async function pickCustomMax(): Promise<number | undefined> {
       { label: "3", description: "retries", id: 3 },
       { label: "5", description: "retries", id: 5 },
       { label: "10", description: "retries", id: 10 },
+      { label: "15", description: "retries", id: 15 },
       { label: "20", description: "retries", id: 20 },
       { label: "Unlimited", description: "no limit (0)", id: 0 },
     ],

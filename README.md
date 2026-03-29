@@ -29,22 +29,30 @@ code --install-extension force-retry-copilot-*.vsix
 
 After installing, reload VS Code (`Cmd+Shift+P` → **Developer: Reload Window**).
 
+## Prerequisites
+
+For this extension to work, the **Output** panel must be open with **"GitHub Copilot Chat"** selected as the output source.
+
+![Output panel with GitHub Copilot Chat selected](media/output-panel.png)
+
+To open it: `View` > `Output` (or `Cmd+Shift+U`), then select **GitHub Copilot Chat** from the dropdown.
+
 ## Usage
 
 Once activated, the extension shows a status bar item at the bottom-right of VS Code:
 
 | State | Status Bar |
 |---|---|
-| Monitoring | `✓ Force Retry ON — max 3` |
-| Retrying | `↻ Force Retry (2/3)` |
+| Monitoring | `✓ Force Retry ON — max 15` |
+| Retrying | `↻ Force Retry (2/15)` |
 | Disabled | `⊘ Force Retry OFF` |
 
 **Click the status bar** to open the options menu:
 
-- **Turn ON** — Normal retry mode (max 3 retries)
-- **Turn ON — Custom** — Choose max retries (3, 5, 10, 20, or unlimited)
+- **Turn ON** — Normal retry mode (max 15 retries)
+- **Turn ON — Custom** — Choose max retries (3, 5, 10, 15, 20, or unlimited)
 - **Turn OFF** — Disable monitoring
-- **Normal Retry** — Switch to max 3 retries
+- **Normal Retry** — Switch to max 15 retries
 - **Custom Retry** — Change the max retry count
 
 ## How It Works
