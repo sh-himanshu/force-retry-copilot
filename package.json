@@ -4,6 +4,11 @@
   "description": "Automatically retries GitHub Copilot Chat when execution errors occur",
   "version": "0.0.3",
   "publisher": "himan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sh-himanshu/force-retry-copilot"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
